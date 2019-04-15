@@ -130,7 +130,7 @@ namespace LinqToXmlApplication
             return root.Elements("channel").
                 Where(x => x.Nodes().OfType<XComment>().Count(y=>y.Value=="DELETE")>0).
                 Where(x=>x.Elements("subscriber").Count()>=2).
-                                Select(x=>Int32.Parse(x.Attribute("id").Value));
+                                Select(x=>(int)x.Attribute("id"));
                 
                 
             //throw new NotImplementedException();
@@ -185,7 +185,7 @@ namespace LinqToXmlApplication
 
             return root.Element("products").Elements("product").
                 Join(productCount, x => x.Attribute("Id").Value, x => x.Key, (x, y) =>
-                 Int32.Parse(x.Attribute("Value").Value) * y.Select(z=>z).Count()).Sum();
+                 (int)x.Attribute("Value") * y.Select(z=>z).Count()).Sum();
 
             
             //throw new NotImplementedException();
